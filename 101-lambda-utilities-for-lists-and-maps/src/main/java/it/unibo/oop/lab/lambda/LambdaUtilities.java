@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 import java.util.Set;
+import java.util.function.Consumer;
 import java.util.function.Function;
 import java.util.function.Predicate;
 import java.util.function.Supplier;
@@ -61,7 +62,17 @@ public final class LambdaUtilities {
         /*
          * Suggestion: consider Optional.filter
          */
-        return null;
+        final List<Optional<T>> newList = new ArrayList<>();
+        //list.forEach(t -> l.add(Optional.ofNullable(t).filter(pre)));
+        list.forEach(new Consumer<T>() {
+
+            @Override
+            public void accept(T t) {
+                newList.add(Optional.ofNullable(t).filter(pre));
+            }
+            
+        });
+        return newList;
     }
 
     /**
